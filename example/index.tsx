@@ -6,13 +6,16 @@ import Modal from '../.';
 const App = () => {
   const [visible, setVisible] = React.useState(false);
   return (
-    <div>
+    <div style={{height: 5000}}>
       <button style={{ width: 50, height: 30 }} onClick={() => setVisible(true)}>Open</button>
       <Modal
+        title="弹出框么这是"
         visible={visible}
         onCancel={() => setVisible(false)}
+        borderRadius="5px"
+        width="800px"
       >
-        asf
+        asfd
       </Modal>
     </div>
   );
