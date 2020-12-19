@@ -5,8 +5,6 @@ const cssnano = require('cssnano');
 const url = require('@rollup/plugin-url');
 const svgr = require('@svgr/rollup').default;
 
-const svg = require('rollup-plugin-svg')
-
 module.exports = {
   rollup(config, options) {
     config.plugins.push(
@@ -18,14 +16,11 @@ module.exports = {
           }),
         ],
         inject: true,
-        // extract: 'react-smooth-modal.min.css',
       })
     );
-    // config.plugins.push(svg());
     config.plugins = [
       url(),
       svgr({
-        // configure however you like, this is just an example
         ref: true,
         memo: true,
         svgoConfig: {
