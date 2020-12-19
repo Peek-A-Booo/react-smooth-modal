@@ -9,7 +9,7 @@ export interface ModalProps {
   width: number | string,
   borderRadius: number | string,
   draggable: boolean,
-  title: React.ReactNode,
+  title: React.ReactNode | string,
   transitionClass: string
 }
 
