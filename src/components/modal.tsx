@@ -1,5 +1,6 @@
 import * as React from 'react';
-import './style.less';
+import CloseBtn from './closeBtn';
+import '../style.less';
 
 export interface ModalProps {
   content: React.ReactNode,
@@ -7,14 +8,6 @@ export interface ModalProps {
   width: number | string,
   borderRadius?: number | string,
   draggable: boolean
-}
-
-const CloseBtn = ({ onClick }: any) => {
-  return (
-    <div className="l-modal-close" onClick={onClick}>
-      <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2981" width="30" height="30"><path d="M517.08411984 479.11475483L301.90637831 263.93753776a26.85237631 26.85237631 0 1 0-37.98667221 37.95153335l215.17669262 215.19504873L263.91970607 732.27864411a26.85237631 26.85237631 0 1 0 37.96936504 37.96884057l215.19504878-215.17669264 215.19504866 215.17669264a26.85237631 26.85237631 0 1 0 37.9688406-37.95100889l-215.17669262-215.2123559 215.17669262-215.1772171a26.85237631 26.85237631 0 1 0-37.9688406-37.96936505L517.10195147 479.11475483z" fill="#8a8a8a" p-id="2982"></path></svg>
-    </div>
-  )
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
