@@ -1,14 +1,15 @@
 import * as React from 'react';
 import CloseBtn from './closeBtn';
-import '../style.less';
+import '../style/index.less';
 
 export interface ModalProps {
   content: React.ReactNode,
   onCancel?: () => void,
+  onSure?: () => void,
   width: number | string,
   borderRadius: number | string,
   draggable: boolean,
-  title: string,
+  title: React.ReactNode,
   transitionClass: string
 }
 
@@ -17,6 +18,7 @@ const Modal: React.FC<ModalProps> = (props) => {
   const {
     content,
     onCancel,
+    onSure,
     width,
     borderRadius,
     title,
@@ -96,11 +98,13 @@ const Modal: React.FC<ModalProps> = (props) => {
         }}
       >
         <CloseBtn onClick={onCancel} />
-        <div className="l-modal-header" onMouseDown={handleHeaderMouseDown}>{title}</div>
+        <div className="l-modal-header" onMouseDown={handleHeaderMouseDown}>
+          <div className="l-modal-title">{title}</div>
+        </div>
         <div className="l-modal-body">{content}</div>
         <div className="l-modal-footer">
           <button className="l-modal-footer-btn" onClick={onCancel}>取消</button>
-          <button className="l-modal-footer-btn l-modal-btn-primary">确定</button>
+          <button className="l-modal-footer-btn l-modal-btn-primary" onClick={onSure}>确定</button>
         </div>
       </div>
     </div>

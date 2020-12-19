@@ -1,7 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from './components/modal';
-import './style.less';
 
 /**
  * interface Props
@@ -19,8 +18,9 @@ export interface LModalProps {
   draggable?: boolean, // 是否可拖拽
   width?: number | string,
   onCancel?: () => void,
+  onSure?: () => void,
   borderRadius?: number | string,  // Number(5) || 5px
-  title?: string
+  title?: React.ReactNode
 }
 
 const LModal: React.FC<LModalProps> = (props) => {
@@ -31,7 +31,8 @@ const LModal: React.FC<LModalProps> = (props) => {
     width = 500,
     title = 'Modal',
     borderRadius = 5,
-    onCancel
+    onCancel,
+    onSure
   } = props;
 
   const body: any = document.querySelector('body')
@@ -76,6 +77,7 @@ const LModal: React.FC<LModalProps> = (props) => {
       draggable={draggable}
       content={children}
       onCancel={onCancel}
+      onSure={onSure}
       title={title}
       transitionClass={transitionClass}
       borderRadius={borderRadius}
