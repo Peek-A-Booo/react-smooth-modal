@@ -45,17 +45,17 @@ const LModal: React.FC<SModalProps> = (props) => {
   const [transitionClass, setTransitionClass] = React.useState<string>('');
   const [enterTimeout, setEnterTimeout] = React.useState<any>();
   const [leaveTimeout, setLeaveTimeout] = React.useState<any>();
-  const [bodyOverflow, setBodyOverflow] = React.useState<any>();
-  const bodyOverflowRef = React.useRef(bodyOverflow);
-  bodyOverflowRef.current = bodyOverflow;
+  // const [bodyOverflow, setBodyOverflow] = React.useState<any>();
+  // const bodyOverflowRef = React.useRef(bodyOverflow);
+  // bodyOverflowRef.current = bodyOverflow;
 
   React.useEffect(() => {
-    if (body.style.overflow && !bodyOverflowRef.current) setBodyOverflow(body.style.overflow)
+    // if (body.style.overflow && !bodyOverflowRef.current) setBodyOverflow(body.style.overflow)
     if (visible) {
       // 判断是否初始化过后已经被调用过了
       if (!isInit) setIsInit(true)
       setIsShow(true)
-      body.style.overflow = 'hidden'
+      // body.style.overflow = 'hidden'
       setTransitionClass('modal-fade-enter modal-fade-enter-active')
       if (enterTimeout) clearTimeout(enterTimeout)
       setEnterTimeout(setTimeout(() => {
@@ -67,7 +67,7 @@ const LModal: React.FC<SModalProps> = (props) => {
       setLeaveTimeout(setTimeout(() => {
         setTransitionClass('')
         setIsShow(false)
-        body.style.overflow = bodyOverflowRef.current || ''
+        // body.style.overflow = bodyOverflowRef.current || ''
         if (isInit && afterClose) afterClose()
       }, 200))
     }
@@ -85,8 +85,8 @@ const LModal: React.FC<SModalProps> = (props) => {
       width={width}
       draggable={draggable}
       content={children}
-      onCancel={onCancel}
       onSure={onSure}
+      onCancel={onCancel}
       title={title}
       transitionClass={transitionClass}
       borderRadius={borderRadius}

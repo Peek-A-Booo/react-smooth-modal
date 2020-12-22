@@ -14,7 +14,8 @@ export interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
-
+  const body: any = document.querySelector('body');
+  let bodyOverflow: any = ''
   const {
     content,
     onCancel,
@@ -77,10 +78,20 @@ const Modal: React.FC<ModalProps> = (props) => {
   }
 
   React.useEffect(() => {
+
+    if (!body.style.overflow) {
+      body.style.overflow = 'hidden'
+    } else if (body.style.overflow !== 'hidden') {
+      bodyOverflow = body.style.overflow
+      body.style.overflow = 'hidden'
+    } else {
+      bodyOverflow = body.style.overflow
+    }
     windowWidth = window.innerWidth
     windowHeight = window.innerHeight
     if (draggable) window.addEventListener('resize', handleResize)
     return () => {
+      body.style.overflow = bodyOverflow
       if (draggable) window.removeEventListener('resize', handleResize)
     }
   }, [])

@@ -17,7 +17,6 @@ const App = () => {
         visible={visible}
         onCancel={() => setVisible(false)}
         onSure={() => { console.log(124) }}
-        afterClose={() => { console.log('关闭') }}
         borderRadius="5px"
         draggable={true}
       >
