@@ -14,12 +14,17 @@ import Modal from './modal';
 
 export interface SModalProps {
   afterClose?: () => void,
-  borderRadius?: number | string,  // Number(5) || 5px
+  borderRadius?: number | string,
+  cancelText?: string,
+  canFullscreen?: boolean,
   children?: React.ReactNode,
-  draggable?: boolean, // 是否可拖拽
+  closable?: boolean,
+  draggable?: boolean,
+  escClosable?: boolean,
   maskClosable?: boolean
   onCancel?: () => void,
   onSure?: () => void,
+  sureText?: string,
   title?: React.ReactNode | string,
   visible?: boolean,
   width?: number | string,
@@ -27,16 +32,21 @@ export interface SModalProps {
 
 const LModal: React.FC<SModalProps> = (props) => {
   const {
-    children = <></>,
-    visible = false,
-    draggable = false,
-    width = 500,
-    title = 'Modal',
-    borderRadius = 5,
-    onCancel,
     afterClose,
+    borderRadius = 5,
+    cancelText = '取消',
+    canFullscreen = false,
+    children = <></>,
+    closable = true,
+    draggable = false,
+    escClosable = true,
     maskClosable = true,
-    onSure
+    onCancel,
+    onSure,
+    sureText = '确定',
+    title = 'Modal',
+    visible = false,
+    width = 500,
   } = props;
   const body: any = document.querySelector('body');
   // 是否初始化过后已经被调用过了
@@ -47,12 +57,8 @@ const LModal: React.FC<SModalProps> = (props) => {
   const [transitionClass, setTransitionClass] = React.useState<string>('');
   const [enterTimeout, setEnterTimeout] = React.useState<any>();
   const [leaveTimeout, setLeaveTimeout] = React.useState<any>();
-  // const [bodyOverflow, setBodyOverflow] = React.useState<any>();
-  // const bodyOverflowRef = React.useRef(bodyOverflow);
-  // bodyOverflowRef.current = bodyOverflow;
 
   React.useEffect(() => {
-    // if (body.style.overflow && !bodyOverflowRef.current) setBodyOverflow(body.style.overflow)
     if (visible) {
       // 判断是否初始化过后已经被调用过了
       if (!isInit) setIsInit(true)
@@ -69,7 +75,6 @@ const LModal: React.FC<SModalProps> = (props) => {
       setLeaveTimeout(setTimeout(() => {
         setTransitionClass('')
         setIsShow(false)
-        // body.style.overflow = bodyOverflowRef.current || ''
         if (isInit && afterClose) afterClose()
       }, 200))
     }
@@ -84,12 +89,17 @@ const LModal: React.FC<SModalProps> = (props) => {
 
   return ReactDOM.createPortal(
     <Modal
-      content={children}
       borderRadius={borderRadius}
+      cancelText={cancelText}
+      canFullscreen={canFullscreen}
+      closable={closable}
+      content={children}
       draggable={draggable}
+      escClosable={escClosable}
       maskClosable={maskClosable}
       onSure={onSure}
       onCancel={onCancel}
+      sureText={sureText}
       title={title}
       transitionClass={transitionClass}
       width={width}

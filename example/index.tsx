@@ -13,24 +13,26 @@ const App = () => {
     <div style={{ height: 5000 }}>
       <button style={{ width: 50, height: 30 }} onClick={() => setVisible(true)}>Open</button>
       <Modal
-        title={<div>阿啥疯s 狂喝</div>}
+        title={<div>Test Title</div>}
         visible={visible}
         onCancel={() => setVisible(false)}
         onSure={() => { console.log(124) }}
         borderRadius="5px"
         draggable={true}
         maskClosable={true}
+        escClosable={false}
+        closable={false}
+        canFullscreen={true}
       >
-        <div style={{ height: 400 }}></div>
-        <button onClick={handleSecond}>二层弹窗</button>
+        <button onClick={handleSecond}>more modal</button>
       </Modal>
 
       <Modal
-        title="测试"
+        title="test"
         visible={secondVisible}
         onCancel={() => setSecondVisible(false)}
       >
-        哇哈哈
+        Hello world!
       </Modal>
     </div>
   );

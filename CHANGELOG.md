@@ -1,8 +1,12 @@
 
-## 0.0.14
+## 0.0.15
 
 - 新增
-  - 新增maskClosable属性：点击蒙层是否允许关闭
+  - 新增maskClosable属性：点击蒙层是否允许关闭(默认为true)
+  - 新增escClode属性：是否能够点击esc按钮关闭(默认为true)
+  - 新增sureText/cancelText属性：设定按钮文本，默认中文确定，取消
+  - 新增closable属性：是否显示右上角关闭按钮，默认为true
+  - 新增canFullscreen属性：是否可以全屏
 
 ## 0.0.14
 

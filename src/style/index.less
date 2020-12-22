@@ -24,13 +24,49 @@
   margin: 0 auto;
   transform: translate(-50%, 0);
   outline: none;
+  display: flex;
+  flex-direction: column;
 }
+
+.l-modal-fullscreen {
+  width: 100% !important;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  transform: none !important;
+
+  .l-modal-body {
+    flex: 1;
+  }
+}
+
 
 .l-modal-close-btn {
   height: 47px;
   width: 47px;
   position: absolute;
   right: 0;
+  top: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: @light-color;
+  transition: color .3s;
+
+  &:hover{
+    color: @dark-color;
+  }
+}
+
+.l-modal-fullscreen-btn {
+  height: 47px;
+  width: 47px;
+  position: absolute;
+  right: 47px;
   top: 0;
   cursor: pointer;
   display: flex;

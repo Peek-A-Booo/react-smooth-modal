@@ -1,39 +1,50 @@
 import * as React from 'react';
 import CloseBtn from './closeBtn';
+import FullscreenBtn from './fullscreenBtn';
 import '../style/index.less';
 
 export interface ModalProps {
+  borderRadius: number | string,
+  cancelText: string,
+  canFullscreen: boolean,
+  closable: boolean,
   content: React.ReactNode,
+  draggable: boolean,
+  escClosable: boolean,
+  maskClosable: boolean
   onCancel?: () => void,
   onSure?: () => void,
-  width: number | string,
-  borderRadius: number | string,
-  draggable: boolean,
+  sureText: string,
   title: React.ReactNode | string,
   transitionClass: string,
-  maskClosable: boolean
+  width: number | string,
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
-  const body: any = document.querySelector('body');
-  let bodyOverflow: any = ''
   const {
+    borderRadius,
+    cancelText,
+    canFullscreen,
+    closable,
     content,
+    draggable,
+    escClosable,
+    maskClosable,
     onCancel,
     onSure,
-    width,
-    borderRadius,
+    sureText,
     title,
     transitionClass,
-    draggable,
-    maskClosable
+    width,
   } = props;
-
+  const body: any = document.querySelector('body');
+  let bodyOverflow: any = ''
   let windowWidth = 0
   let windowHeight = 0
   const modalRef: any = React.useRef();
   const [clientWidth, setClientWidth] = React.useState<number>(0);
   const [allowDrag, setAllowDrag] = React.useState<boolean>(false);
+  const [isFullscreen, setFullscreen] = React.useState<boolean>(false);
   const [initClientX, setInitClientX] = React.useState<number>(0);    // 初始容器的位置
   const [initClientY, setInitClientY] = React.useState<number>(0);
   const [nowClientX, setNowClientX] = React.useState<number>(0);      // 现在容器的位置
@@ -67,7 +78,7 @@ const Modal: React.FC<ModalProps> = (props) => {
   }
 
   const handleContainerMouseMove = (e: any) => {
-    if (!draggable || !allowDragRef.current) return
+    if (!draggable || !allowDragRef.current || isFullscreen) return
     const scrollX: any = (e.clientX - mouseX + (nowClientX - initClientX)) - perX / 2
     const scrollY: any = (e.clientY - mouseY + (nowClientY - initClientY)) - perY / 2
     const num1: any = scrollX - (clientWidth / 2)
@@ -83,6 +94,14 @@ const Modal: React.FC<ModalProps> = (props) => {
     if (maskClosable && onCancel) onCancel()
   }
 
+  const handleKeyCode = (e: any) => {
+    if (e.keyCode === 27 && onCancel) onCancel()
+  }
+
+  const handleFullscreen = () => {
+    setFullscreen(!isFullscreen)
+  }
+
   React.useEffect(() => {
     if (!body.style.overflow) {
       body.style.overflow = 'hidden'
@@ -95,18 +114,28 @@ const Modal: React.FC<ModalProps> = (props) => {
     windowWidth = window.innerWidth
     windowHeight = window.innerHeight
     if (draggable) window.addEventListener('resize', handleResize)
+    if (escClosable) window.addEventListener('keydown', handleKeyCode)
     return () => {
       body.style.overflow = bodyOverflow
       if (draggable) window.removeEventListener('resize', handleResize)
+      if (escClosable) window.removeEventListener('keydown', handleKeyCode)
     }
   }, [])
-  
+
   return (
-    <div className="l-modal-container" onMouseMove={handleContainerMouseMove} onMouseUp={handleContainerMouseUp}>
+    <div
+      className="l-modal-container"
+      onMouseMove={handleContainerMouseMove}
+      onMouseUp={handleContainerMouseUp}
+    >
       <div className={['l-modal-mask', transitionClass].join(' ')} onClick={handleClickMask} />
       <div
         ref={modalRef}
-        className={['l-modal', transitionClass].join(' ')}
+        className={[
+          'l-modal',
+          transitionClass,
+          isFullscreen ? 'l-modal-fullscreen' : ''
+        ].join(' ')}
         tabIndex={-1}
         onClick={e => e.stopPropagation()}
         style={{
@@ -114,7 +143,8 @@ const Modal: React.FC<ModalProps> = (props) => {
           borderRadius,
         }}
       >
-        <CloseBtn onClick={onCancel} />
+        {closable && <CloseBtn onClick={onCancel} />}
+        {canFullscreen && <FullscreenBtn onClick={handleFullscreen} isFullscreen={isFullscreen} />}
         <div
           className="l-modal-header"
           style={{
@@ -127,8 +157,8 @@ const Modal: React.FC<ModalProps> = (props) => {
         </div>
         <div className="l-modal-body">{content}</div>
         <div className="l-modal-footer">
-          <button className="l-modal-footer-btn" onClick={onCancel}>取消</button>
-          <button className="l-modal-footer-btn l-modal-btn-primary" onClick={onSure}>确定</button>
+          <button className="l-modal-footer-btn" onClick={onCancel}>{cancelText}</button>
+          <button className="l-modal-footer-btn l-modal-btn-primary" onClick={onSure}>{sureText}</button>
         </div>
       </div>
     </div>
