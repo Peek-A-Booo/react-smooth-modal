@@ -1,6 +1,6 @@
 # React Smooth Modal
 
-> A Smooth Modal dialog for React.JS
+A Smooth Modal which can be fullscreen and draggable dialog for React.JS.
 
 ## Installation
 
