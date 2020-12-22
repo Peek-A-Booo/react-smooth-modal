@@ -5,6 +5,10 @@ import Modal from '../.';
 
 const App = () => {
   const [visible, setVisible] = React.useState(false);
+  const [secondVisible, setSecondVisible] = React.useState(false);
+  const handleSecond = () => {
+    setSecondVisible(true)
+  }
   return (
     <div style={{ height: 5000 }}>
       <button style={{ width: 50, height: 30 }} onClick={() => setVisible(true)}>Open</button>
@@ -13,10 +17,20 @@ const App = () => {
         visible={visible}
         onCancel={() => setVisible(false)}
         onSure={() => { console.log(124) }}
+        afterClose={() => { console.log('关闭') }}
         borderRadius="5px"
         draggable={true}
       >
-        asfd
+        <div style={{ height: 400 }}></div>
+        <button onClick={handleSecond}>二层弹窗</button>
+      </Modal>
+
+      <Modal
+        title="测试"
+        visible={secondVisible}
+        onCancel={() => setSecondVisible(false)}
+      >
+        哇哈哈
       </Modal>
     </div>
   );

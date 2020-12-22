@@ -65,9 +65,10 @@ const Modal: React.FC<ModalProps> = (props) => {
 
   const handleContainerMouseMove = (e: any) => {
     if (!draggable || !allowDragRef.current) return
-    const scrollX = (e.clientX - mouseX + (nowClientX - initClientX)) - perX / 2
-    const scrollY = (e.clientY - mouseY + (nowClientY - initClientY)) - perY / 2
-    modalRef.current.style.transform = `translate3d(${scrollX - (clientWidth / 2)}px, ${scrollY}px, 1px)`
+    const scrollX: any = (e.clientX - mouseX + (nowClientX - initClientX)) - perX / 2
+    const scrollY: any = (e.clientY - mouseY + (nowClientY - initClientY)) - perY / 2
+    const num1: any = scrollX - (clientWidth / 2)
+    modalRef.current.style.transform = `translate3d(${parseInt(num1)}px, ${parseInt(scrollY)}px, 1px)`
   }
 
   const handleResize = (e: any) => {
@@ -98,7 +99,14 @@ const Modal: React.FC<ModalProps> = (props) => {
         }}
       >
         <CloseBtn onClick={onCancel} />
-        <div className="l-modal-header" onMouseDown={handleHeaderMouseDown}>
+        <div
+          className="l-modal-header"
+          style={{
+            borderTopLeftRadius: borderRadius,
+            borderTopRightRadius: borderRadius
+          }}
+          onMouseDown={handleHeaderMouseDown}
+        >
           <div className="l-modal-title">{title}</div>
         </div>
         <div className="l-modal-body">{content}</div>

@@ -20,7 +20,8 @@ export interface SModalProps {
   onCancel?: () => void,
   onSure?: () => void,
   borderRadius?: number | string,  // Number(5) || 5px
-  title?: React.ReactNode | string
+  title?: React.ReactNode | string,
+  afterClose?: () => void
 }
 
 const LModal: React.FC<SModalProps> = (props) => {
@@ -32,19 +33,27 @@ const LModal: React.FC<SModalProps> = (props) => {
     title = 'Modal',
     borderRadius = 5,
     onCancel,
+    afterClose,
     onSure
   } = props;
-
-  const body: any = document.querySelector('body')
+  const body: any = document.querySelector('body');
+  // 是否初始化过后已经被调用过了
+  const [isInit, setIsInit] = React.useState<boolean>(false);
   // 是否展示组件
   const [isShow, setIsShow] = React.useState<boolean>(false);
   // 组件动画class
   const [transitionClass, setTransitionClass] = React.useState<string>('');
   const [enterTimeout, setEnterTimeout] = React.useState<any>();
   const [leaveTimeout, setLeaveTimeout] = React.useState<any>();
+  const [bodyOverflow, setBodyOverflow] = React.useState<any>();
+  const bodyOverflowRef = React.useRef(bodyOverflow);
+  bodyOverflowRef.current = bodyOverflow;
 
   React.useEffect(() => {
+    if (body.style.overflow && !bodyOverflowRef.current) setBodyOverflow(body.style.overflow)
     if (visible) {
+      // 判断是否初始化过后已经被调用过了
+      if (!isInit) setIsInit(true)
       setIsShow(true)
       body.style.overflow = 'hidden'
       setTransitionClass('modal-fade-enter modal-fade-enter-active')
@@ -58,10 +67,10 @@ const LModal: React.FC<SModalProps> = (props) => {
       setLeaveTimeout(setTimeout(() => {
         setTransitionClass('')
         setIsShow(false)
-        body.style.overflow = ''
+        body.style.overflow = bodyOverflowRef.current || ''
+        if (isInit && afterClose) afterClose()
       }, 200))
     }
-
     return () => {
       // 清除timeout
       if (enterTimeout) clearTimeout(enterTimeout)
