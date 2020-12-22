@@ -10,7 +10,8 @@ export interface ModalProps {
   borderRadius: number | string,
   draggable: boolean,
   title: React.ReactNode | string,
-  transitionClass: string
+  transitionClass: string,
+  maskClosable: boolean
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
@@ -24,7 +25,8 @@ const Modal: React.FC<ModalProps> = (props) => {
     borderRadius,
     title,
     transitionClass,
-    draggable
+    draggable,
+    maskClosable
   } = props;
 
   let windowWidth = 0
@@ -77,8 +79,11 @@ const Modal: React.FC<ModalProps> = (props) => {
     setPerY(e.target.innerHeight - windowHeight)
   }
 
-  React.useEffect(() => {
+  const handleClickMask = () => {
+    if (maskClosable && onCancel) onCancel()
+  }
 
+  React.useEffect(() => {
     if (!body.style.overflow) {
       body.style.overflow = 'hidden'
     } else if (body.style.overflow !== 'hidden') {
@@ -95,10 +100,10 @@ const Modal: React.FC<ModalProps> = (props) => {
       if (draggable) window.removeEventListener('resize', handleResize)
     }
   }, [])
-
+  
   return (
     <div className="l-modal-container" onMouseMove={handleContainerMouseMove} onMouseUp={handleContainerMouseUp}>
-      <div className={['l-modal-mask', transitionClass].join(' ')} onClick={onCancel} />
+      <div className={['l-modal-mask', transitionClass].join(' ')} onClick={handleClickMask} />
       <div
         ref={modalRef}
         className={['l-modal', transitionClass].join(' ')}

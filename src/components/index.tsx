@@ -13,15 +13,16 @@ import Modal from './modal';
  */
 
 export interface SModalProps {
+  afterClose?: () => void,
+  borderRadius?: number | string,  // Number(5) || 5px
   children?: React.ReactNode,
-  visible?: boolean,
   draggable?: boolean, // 是否可拖拽
-  width?: number | string,
+  maskClosable?: boolean
   onCancel?: () => void,
   onSure?: () => void,
-  borderRadius?: number | string,  // Number(5) || 5px
   title?: React.ReactNode | string,
-  afterClose?: () => void
+  visible?: boolean,
+  width?: number | string,
 }
 
 const LModal: React.FC<SModalProps> = (props) => {
@@ -34,6 +35,7 @@ const LModal: React.FC<SModalProps> = (props) => {
     borderRadius = 5,
     onCancel,
     afterClose,
+    maskClosable = true,
     onSure
   } = props;
   const body: any = document.querySelector('body');
@@ -82,14 +84,15 @@ const LModal: React.FC<SModalProps> = (props) => {
 
   return ReactDOM.createPortal(
     <Modal
-      width={width}
-      draggable={draggable}
       content={children}
+      borderRadius={borderRadius}
+      draggable={draggable}
+      maskClosable={maskClosable}
       onSure={onSure}
       onCancel={onCancel}
       title={title}
       transitionClass={transitionClass}
-      borderRadius={borderRadius}
+      width={width}
     />
     , body)
 }

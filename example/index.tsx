@@ -19,6 +19,7 @@ const App = () => {
         onSure={() => { console.log(124) }}
         borderRadius="5px"
         draggable={true}
+        maskClosable={true}
       >
         <div style={{ height: 400 }}></div>
         <button onClick={handleSecond}>二层弹窗</button>
