@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CloseBtn from './closeBtn';
 import FullscreenBtn from './fullscreenBtn';
+import '../assets/iconfont.js';
 import '../style/index.less';
 
 export interface ModalProps {

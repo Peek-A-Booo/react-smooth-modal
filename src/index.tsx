@@ -59,40 +59,40 @@ const LModal: React.FC<SModalProps> = (props) => {
   React.useEffect(() => {
     if (visible) {
       // 判断是否初始化过后已经被调用过了
-      if (!isInit) setIsInit(true)
-      setIsShow(true)
+      if (!isInit) setIsInit(true);
+      setIsShow(true);
       if (animated) {
-        setTransitionClass('modal-fade-enter modal-fade-enter-active')
-        if (enterTimeout) clearTimeout(enterTimeout)
+        setTransitionClass('modal-fade-enter modal-fade-enter-active');
+        if (enterTimeout) clearTimeout(enterTimeout);
         setEnterTimeout(setTimeout(() => {
-          setTransitionClass('')
-        }, 200))
+          setTransitionClass('');
+        }, 200));
       }
     } else {
       if (isInit) {
         if (animated) {
           setTransitionClass('modal-fade-leave modal-fade-leave-active')
-          if (enterTimeout) clearTimeout(enterTimeout)
-          if (leaveTimeout) clearTimeout(leaveTimeout)
+          if (enterTimeout) clearTimeout(enterTimeout);
+          if (leaveTimeout) clearTimeout(leaveTimeout);
           setLeaveTimeout(setTimeout(() => {
-            setTransitionClass('')
-            setIsShow(false)
-            if (isInit && afterClose) afterClose()
+            setTransitionClass('');
+            setIsShow(false);
+            if (isInit && afterClose) afterClose();
           }, 200))
         } else {
-          setIsShow(false)
-          if (isInit && afterClose) afterClose()
+          setIsShow(false);
+          if (isInit && afterClose) afterClose();
         }
       }
     }
     return () => {
       // 清除timeout
-      if (enterTimeout) clearTimeout(enterTimeout)
-      if (leaveTimeout) clearTimeout(leaveTimeout)
+      if (enterTimeout) clearTimeout(enterTimeout);
+      if (leaveTimeout) clearTimeout(leaveTimeout);
     }
-  }, [visible])
+  }, [visible]);
 
-  if (!isShow) return null
+  if (!isShow) return null;
 
   return ReactDOM.createPortal(
     <Modal
@@ -114,7 +114,7 @@ const LModal: React.FC<SModalProps> = (props) => {
       width={width}
       zIndex={zIndex}
     />
-    , body)
+    , body);
 }
 
 export default LModal;

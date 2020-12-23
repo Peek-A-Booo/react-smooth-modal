@@ -8,20 +8,17 @@ const App = () => {
   const [secondVisible, setSecondVisible] = React.useState(false);
 
   const handleClick = () => {
-    console.log(111)
-    setVisible(true)
-  }
+    console.log(111);
+    setVisible(true);
+  };
 
   const handleSecond = () => {
-    setSecondVisible(true)
-  }
+    setSecondVisible(true);
+  };
 
   const handleSure = async () => {
-    console.log(111)
-    return new Promise((resove) => {
-      if (1) resove(1)
-    })
-  }
+    console.log(123);
+  };
 
   return (
     <div style={{ height: 5000 }}>
@@ -35,7 +32,7 @@ const App = () => {
         draggable={true}
         maskClosable={true}
         escClosable={false}
-        canFullscreen={false}
+        canFullscreen={true}
         centered={true}
         footer={null}
         zIndex={1050}
