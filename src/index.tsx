@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from './components/modal';
+import './style/index.less';
 
 export interface SModalProps {
   afterClose?: () => void;

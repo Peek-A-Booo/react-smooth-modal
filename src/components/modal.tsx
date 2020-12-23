@@ -1,7 +1,6 @@
 import * as React from 'react';
 import CloseBtn from './closeBtn';
 import FullscreenBtn from './fullscreenBtn';
-import '../style/index.less';
 
 export interface ModalProps {
   borderRadius: number | string;
