@@ -7,10 +7,12 @@ export interface ModalProps {
   borderRadius: number | string,
   cancelText: string,
   canFullscreen: boolean,
+  centered: boolean,
   closable: boolean,
   content: React.ReactNode,
   draggable: boolean,
   escClosable: boolean,
+  footer: React.ReactNode,
   maskClosable: boolean
   onCancel?: () => void,
   onSure?: () => void,
@@ -18,6 +20,7 @@ export interface ModalProps {
   title: React.ReactNode | string,
   transitionClass: string,
   width: number | string,
+  zIndex: number
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
@@ -25,10 +28,12 @@ const Modal: React.FC<ModalProps> = (props) => {
     borderRadius,
     cancelText,
     canFullscreen,
+    centered,
     closable,
     content,
     draggable,
     escClosable,
+    footer,
     maskClosable,
     onCancel,
     onSure,
@@ -36,6 +41,7 @@ const Modal: React.FC<ModalProps> = (props) => {
     title,
     transitionClass,
     width,
+    zIndex
   } = props;
   const body: any = document.querySelector('body');
   let bodyOverflow: any = ''
@@ -43,6 +49,7 @@ const Modal: React.FC<ModalProps> = (props) => {
   let windowHeight = 0
   const modalRef: any = React.useRef();
   const [clientWidth, setClientWidth] = React.useState<number>(0);
+  const [clientHeight, setClientHeight] = React.useState<number>(0);
   const [allowDrag, setAllowDrag] = React.useState<boolean>(false);
   const [isFullscreen, setFullscreen] = React.useState<boolean>(false);
   const [initClientX, setInitClientX] = React.useState<number>(0);    // 初始容器的位置
@@ -61,6 +68,7 @@ const Modal: React.FC<ModalProps> = (props) => {
     if (!draggable) return
     const style = modalRef.current.getBoundingClientRect()
     setClientWidth(style.width)
+    setClientHeight(style.height)
     setAllowDrag(true)
     if (!initClientX && !initClientY) {
       setInitClientX(style.x)
@@ -81,8 +89,9 @@ const Modal: React.FC<ModalProps> = (props) => {
     if (!draggable || !allowDragRef.current || isFullscreen) return
     const scrollX: any = (e.clientX - mouseX + (nowClientX - initClientX)) - perX / 2
     const scrollY: any = (e.clientY - mouseY + (nowClientY - initClientY)) - perY / 2
-    const num1: any = scrollX - (clientWidth / 2)
-    modalRef.current.style.transform = `translate3d(${parseInt(num1)}px, ${parseInt(scrollY)}px, 1px)`
+    const calcX: any = scrollX - (clientWidth / 2)
+    const calcY: any = centered ? (scrollY - (clientHeight / 2)) : scrollY
+    modalRef.current.style.transform = `translate3d(${parseInt(calcX)}px, ${parseInt(calcY)}px, 1px)`
   }
 
   const handleResize = (e: any) => {
@@ -128,19 +137,28 @@ const Modal: React.FC<ModalProps> = (props) => {
       onMouseMove={handleContainerMouseMove}
       onMouseUp={handleContainerMouseUp}
     >
-      <div className={['l-modal-mask', transitionClass].join(' ')} onClick={handleClickMask} />
+      {zIndex}
+      <div
+        className={['l-modal-mask', transitionClass].join(' ')}
+        style={{
+          zIndex: zIndex !== 1001 ? zIndex : undefined
+        }}
+        onClick={handleClickMask}
+      />
       <div
         ref={modalRef}
         className={[
           'l-modal',
           transitionClass,
-          isFullscreen ? 'l-modal-fullscreen' : ''
+          isFullscreen ? 'l-modal-fullscreen' : '',
+          centered ? 'l-modal-center' : ''
         ].join(' ')}
         tabIndex={-1}
         onClick={e => e.stopPropagation()}
         style={{
           width,
           borderRadius,
+          zIndex: zIndex !== 1001 ? zIndex : undefined
         }}
       >
         {closable && <CloseBtn onClick={onCancel} />}
@@ -156,10 +174,24 @@ const Modal: React.FC<ModalProps> = (props) => {
           <div className="l-modal-title">{title}</div>
         </div>
         <div className="l-modal-body">{content}</div>
-        <div className="l-modal-footer">
-          <button className="l-modal-footer-btn" onClick={onCancel}>{cancelText}</button>
-          <button className="l-modal-footer-btn l-modal-btn-primary" onClick={onSure}>{sureText}</button>
-        </div>
+        {
+          footer === null
+            ? null
+            : (
+              <div className="l-modal-footer">
+                {
+                  footer
+                    ? footer
+                    : (
+                      <>
+                        <button className="l-modal-footer-btn" onClick={onCancel}>{cancelText}</button>
+                        <button className="l-modal-footer-btn l-modal-btn-primary" onClick={onSure}>{sureText}</button>
+                      </>
+                    )
+                }
+              </div>
+            )
+        }
       </div>
     </div>
   )

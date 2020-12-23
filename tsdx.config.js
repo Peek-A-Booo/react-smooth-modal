@@ -6,17 +6,6 @@ const svgr = require('@svgr/rollup').default;
 
 module.exports = {
   rollup(config, options) {
-    config.plugins.push(
-      postcss({
-        plugins: [
-          autoprefixer(),
-          cssnano({
-            preset: 'default',
-          }),
-        ],
-        inject: true,
-      })
-    );
     config.plugins = [
       url(),
       svgr({
@@ -30,6 +19,15 @@ module.exports = {
         },
       }),
       ...config.plugins,
+      postcss({
+        plugins: [
+          autoprefixer(),
+          cssnano({
+            preset: 'default',
+          }),
+        ],
+        inject: true,
+      })
     ];
     return config;
   },

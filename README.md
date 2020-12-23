@@ -49,9 +49,11 @@ Coming soon.
 | borderRadius          | number / string    | 5px           | BorderRadius of modal container                     |
 | cancelText            | string             | 取消           | The cancel button text                              |
 | canFullscreen         | boolean            | false         | Whether the modal can fullscreen                    |
+| centerd               | boolean            | false         | Centered Modal                                      |
 | closable              | boolean            | true          | Whether a close (x) button is visible or not        |
 | draggable             | boolean            | false         | Can be draggable                                    |
 | escClosable           | boolean            | true          | Whether support press esc to close                  |
+| footer                | ReactNode          | -             | The modal's footer                                  |
 | maskClosable          | boolean            | true          | Whether to close the modal when the mask is clicked |
 | onCancel              | function()         | -             |                                                     |
 | onSure                | function()         | -             |                                                     |
@@ -59,3 +61,11 @@ Coming soon.
 | title                 | ReactNode / string | -             | The modal's title                                   |
 | visible               | boolean            | false         | Whether the modal is visible or not                 |
 | width                 | number / string    | 500px         | The modal's width                                   |
+| zIndex                | number             | 1001          | The z-index of the Modal                            |
+
+
+
+
+
+
+

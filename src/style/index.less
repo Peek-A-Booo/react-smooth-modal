@@ -3,6 +3,11 @@
 @border-color: #f0f0f0;
 @primary-color: #1890ff;
 
+.l-modal-container {
+  z-index: 1001;
+  background-color: red;
+}
+
 .l-modal-mask {
   position: fixed;
   left: 0;
@@ -21,11 +26,15 @@
   left: 50%;
   top: 100px;
   z-index: 1001;
-  margin: 0 auto;
   transform: translate(-50%, 0);
   outline: none;
   display: flex;
   flex-direction: column;
+
+  &.l-modal-center {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .l-modal-fullscreen {
@@ -174,7 +183,6 @@
   animation-name: antFadeOut;
   -webkit-animation-play-state: running;
   animation-play-state: running;
-  pointer-events: none
 }
 
 .modal-fade-appear,.modal-fade-enter {

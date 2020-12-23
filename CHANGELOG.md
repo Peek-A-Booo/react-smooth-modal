@@ -3,6 +3,12 @@
 
 - 修复
   - 修复index.d.ts生成不正确的问题
+  - 修复快速调用打开隐藏时显示错误的问题
+
+- 新增
+  - 新增footer属性：可以自定义modal的底部内容
+  - 新增centerd属性：是否默认居中modal
+  - 新增zIndex属性：可以手动修改modal层级z-index
 
 ## 0.0.15
 
