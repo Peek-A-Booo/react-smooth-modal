@@ -1,6 +1,12 @@
-# React Smooth Modal
 
-A Smooth Modal which can be fullscreen and draggable dialog for React.JS.
+<h1 align="center">React Smooth Modal</h1>
+
+<div align="center">
+    A Smooth Modal which can be fullscreen and draggable dialog for React.JS.
+</div>
+
+![gzip size](https://img.badgesize.io/https:/unpkg.com/react-smooth-modal@0.0.16/dist/react-smooth-modal.cjs.production.min.js?compression=gzip)
+
 
 ## Installation
 

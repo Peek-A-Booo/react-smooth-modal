@@ -1,6 +1,6 @@
 {
   "name": "react-smooth-modal",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "description": "A Smooth Modal dialog for React.JS",
   "title": "React Smooth Modal",
   "keywords": [
@@ -59,9 +59,6 @@
       "limit": "10 KB"
     }
   ],
-  "dependencies": {
-    "screenfull": "5.0.2"
-  },
   "devDependencies": {
     "@rollup/plugin-image": "2.0.6",
     "@rollup/plugin-url": "6.0.0",
