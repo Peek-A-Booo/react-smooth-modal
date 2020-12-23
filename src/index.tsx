@@ -3,28 +3,28 @@ import ReactDOM from 'react-dom';
 import Modal from './components/modal';
 
 export interface SModalProps {
-  afterClose?: () => void,
-  animated?: boolean,
-  borderRadius?: number | string,
-  cancelText?: string,
-  canFullscreen?: boolean,
-  centered?: boolean,
-  children?: React.ReactNode,
-  closable?: boolean,
-  draggable?: boolean,
-  escClosable?: boolean,
-  footer?: React.ReactNode,
-  maskClosable?: boolean
-  onCancel?: () => void,
-  onSure?: () => void,
-  sureText?: string,
-  title?: React.ReactNode | string,
-  visible?: boolean,
-  width?: number | string,
-  zIndex?: number
+  afterClose?: () => void;
+  animated?: boolean;
+  borderRadius?: number | string;
+  cancelText?: string;
+  canFullscreen?: boolean;
+  centered?: boolean;
+  children?: React.ReactNode;
+  closable?: boolean;
+  draggable?: boolean;
+  escClosable?: boolean;
+  footer?: React.ReactNode;
+  maskClosable?: boolean;
+  onCancel?: () => void;
+  onSure?: () => void;
+  sureText?: string;
+  title?: React.ReactNode | string;
+  visible?: boolean;
+  width?: number | string;
+  zIndex?: number;
 }
 
-const LModal: React.FC<SModalProps> = (props) => {
+const LModal: React.FC<SModalProps> = props => {
   const {
     afterClose,
     animated = true,
@@ -44,7 +44,7 @@ const LModal: React.FC<SModalProps> = (props) => {
     title = 'Modal',
     visible = false,
     width = 500,
-    zIndex = 1001
+    zIndex = 1001,
   } = props;
   const body: any = document.querySelector('body');
   // 是否初始化过后已经被调用过了
@@ -64,21 +64,25 @@ const LModal: React.FC<SModalProps> = (props) => {
       if (animated) {
         setTransitionClass('modal-fade-enter modal-fade-enter-active');
         if (enterTimeout) clearTimeout(enterTimeout);
-        setEnterTimeout(setTimeout(() => {
-          setTransitionClass('');
-        }, 200));
+        setEnterTimeout(
+          setTimeout(() => {
+            setTransitionClass('');
+          }, 200)
+        );
       }
     } else {
       if (isInit) {
         if (animated) {
-          setTransitionClass('modal-fade-leave modal-fade-leave-active')
+          setTransitionClass('modal-fade-leave modal-fade-leave-active');
           if (enterTimeout) clearTimeout(enterTimeout);
           if (leaveTimeout) clearTimeout(leaveTimeout);
-          setLeaveTimeout(setTimeout(() => {
-            setTransitionClass('');
-            setIsShow(false);
-            if (isInit && afterClose) afterClose();
-          }, 200))
+          setLeaveTimeout(
+            setTimeout(() => {
+              setTransitionClass('');
+              setIsShow(false);
+              if (isInit && afterClose) afterClose();
+            }, 200)
+          );
         } else {
           setIsShow(false);
           if (isInit && afterClose) afterClose();
@@ -89,7 +93,7 @@ const LModal: React.FC<SModalProps> = (props) => {
       // 清除timeout
       if (enterTimeout) clearTimeout(enterTimeout);
       if (leaveTimeout) clearTimeout(leaveTimeout);
-    }
+    };
   }, [visible]);
 
   if (!isShow) return null;
@@ -113,8 +117,9 @@ const LModal: React.FC<SModalProps> = (props) => {
       transitionClass={transitionClass}
       width={width}
       zIndex={zIndex}
-    />
-    , body);
-}
+    />,
+    body
+  );
+};
 
 export default LModal;
