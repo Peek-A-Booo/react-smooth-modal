@@ -1,0 +1,73 @@
+// Modal Animate Css
+
+.modal-fade-appear,.modal-fade-enter,.modal-fade-leave {
+  -webkit-animation-duration: .2s;
+  animation-duration: .2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused
+}
+
+.modal-fade-appear.modal-fade-appear-active,.modal-fade-enter.modal-fade-enter-active {
+  -webkit-animation-name: antFadeIn;
+  animation-name: antFadeIn;
+  -webkit-animation-play-state: running;
+  animation-play-state: running
+}
+
+.modal-fade-leave.modal-fade-leave-active {
+  -webkit-animation-name: antFadeOut;
+  animation-name: antFadeOut;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+}
+
+.modal-fade-appear,.modal-fade-enter {
+  opacity: 0
+}
+
+.modal-fade-appear,.modal-fade-enter,.modal-fade-leave {
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear
+}
+
+@-webkit-keyframes antFadeIn {
+  0% {
+      opacity: 0
+  }
+
+  to {
+      opacity: 1
+  }
+}
+
+@keyframes antFadeIn {
+  0% {
+      opacity: 0
+  }
+
+  to {
+      opacity: 1
+  }
+}
+
+@-webkit-keyframes antFadeOut {
+  0% {
+      opacity: 1
+  }
+
+  to {
+      opacity: 0
+  }
+}
+
+@keyframes antFadeOut {
+  0% {
+      opacity: 1
+  }
+
+  to {
+      opacity: 0
+  }
+}
