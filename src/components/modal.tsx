@@ -3,6 +3,7 @@ import CloseBtn from './closeBtn';
 import FullscreenBtn from './fullscreenBtn';
 
 export interface ModalProps {
+  bodyStyle?: React.CSSProperties;
   borderRadius: number | string;
   cancelText: string;
   canFullscreen: boolean;
@@ -24,6 +25,7 @@ export interface ModalProps {
 
 const Modal: React.FC<ModalProps> = props => {
   const {
+    bodyStyle,
     borderRadius,
     cancelText,
     canFullscreen,
@@ -43,7 +45,6 @@ const Modal: React.FC<ModalProps> = props => {
     zIndex,
   } = props;
   const body: any = document.querySelector('body');
-  // let bodyOverflow: any = '';
   let windowWidth = 0;
   let windowHeight = 0;
   const modalRef: any = React.useRef();
@@ -64,6 +65,8 @@ const Modal: React.FC<ModalProps> = props => {
   const [perY, setPerY] = React.useState<number>(1);
   const allowDragRef = React.useRef(allowDrag);
   allowDragRef.current = allowDrag;
+  const bodyOverflowRef = React.useRef(bodyOverflow);
+  bodyOverflowRef.current = bodyOverflow;
 
   // 只在第一次初始化点击的时候，初始化initX和initY(modal框的初始位置)
   const handleHeaderMouseDown = (e: any) => {
@@ -89,16 +92,13 @@ const Modal: React.FC<ModalProps> = props => {
 
   const handleContainerMouseMove = (e: any) => {
     if (!draggable || !allowDragRef.current || isFullscreen) return;
-
     const scrollX = e.clientX - mouseX + nowClientX - initClientX - perX / 2;
-
     const scrollY = e.clientY - mouseY + nowClientY - initClientY - perY / 2;
-
-    const calcX: any = scrollX - clientWidth / 2;
-    const calcY: any = centered ? scrollY - clientHeight / 2 : scrollY;
-    modalRef.current.style.transform = `translate3d(${parseInt(
-      calcX
-    )}px, ${parseInt(calcY)}px, 1px)`;
+    const calcX: any = parseInt((scrollX - clientWidth / 2).toString());
+    const calcY: any = parseInt(
+      (centered ? scrollY - clientHeight / 2 : scrollY).toString()
+    );
+    modalRef.current.style.transform = `translate3d(${calcX}px, ${calcY}px, 1px)`;
   };
 
   const handleResize = (e: any) => {
@@ -132,7 +132,7 @@ const Modal: React.FC<ModalProps> = props => {
     if (draggable) window.addEventListener('resize', handleResize);
     if (escClosable) window.addEventListener('keydown', handleKeyCode);
     return () => {
-      body.style.overflow = bodyOverflow;
+      body.style.overflow = bodyOverflowRef.current;
       if (draggable) window.removeEventListener('resize', handleResize);
       if (escClosable) window.removeEventListener('keydown', handleKeyCode);
     };
@@ -157,8 +157,8 @@ const Modal: React.FC<ModalProps> = props => {
         className={[
           'l-modal',
           transitionClass,
-          isFullscreen ? 'l-modal-fullscreen' : '',
           centered ? 'l-modal-center' : '',
+          isFullscreen ? 'l-modal-fullscreen' : '',
         ].join(' ')}
         tabIndex={-1}
         onClick={e => e.stopPropagation()}
@@ -185,7 +185,9 @@ const Modal: React.FC<ModalProps> = props => {
         >
           <div className="l-modal-title">{title}</div>
         </div>
-        <div className="l-modal-body">{content}</div>
+        <div className="l-modal-body" style={bodyStyle}>
+          {content}
+        </div>
         {footer === null ? null : (
           <div className="l-modal-footer">
             {footer || (

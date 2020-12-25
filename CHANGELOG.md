@@ -1,4 +1,13 @@
 
+## 0.0.20
+
+- 修复
+  - canFullscreen和centered属性冲突的问题
+  - 多层modal时body overflow属性处理错误的问题
+
+- 新增
+  - bodyStyle属性：可以自定义body部分样式属性
+
 ## 0.0.17
 
 - 修复

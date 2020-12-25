@@ -6,6 +6,7 @@ import './style/index.less';
 export interface SModalProps {
   afterClose?: () => void;
   animated?: boolean;
+  bodyStyle?: React.CSSProperties;
   borderRadius?: number | string;
   cancelText?: string;
   canFullscreen?: boolean;
@@ -29,6 +30,7 @@ const LModal: React.FC<SModalProps> = props => {
   const {
     afterClose,
     animated = true,
+    bodyStyle,
     borderRadius = 5,
     cancelText = '取消',
     canFullscreen = false,
@@ -101,6 +103,7 @@ const LModal: React.FC<SModalProps> = props => {
 
   return ReactDOM.createPortal(
     <Modal
+      bodyStyle={bodyStyle}
       borderRadius={borderRadius}
       cancelText={cancelText}
       canFullscreen={canFullscreen}

@@ -8,15 +8,21 @@ A Smooth Modal which can be fullscreen and draggable dialog for React.JS.
 
 ## Installation
 
-```
+```bash
+ # If you use npm:
  npm install react-smooth-modal
+
+ # Or if you use Yarn:
+ yarn add react-smooth-modal
 ```
+
 
 ## Usage
 
 Here is a example of react-smooth-modal being used in React with hooks: 
 
 ```tsx
+ import React, { useState } from 'react';
  import Modal from 'react-smooth-modal';
 
  const App = () => {
@@ -28,7 +34,7 @@ Here is a example of react-smooth-modal being used in React with hooks:
                 visible={visible}
                 onCancel={() => setVisible(false)}
             >
-                哇哈哈
+                Hello World!
             </Modal>
         </div> 
     )
@@ -37,13 +43,14 @@ Here is a example of react-smooth-modal being used in React with hooks:
 
 ## Documentation
 
-Coming soon.
+Coming soon!
 
-## Available props
+## API
 
 | Name                  | Type               | Default       | Description                                         |
 | --------------------- | ------------------ | ------------- | --------------------------------------------------- |
 | afterClose            | function()         | -             | Callback when the modal close                       |
+| bodyStyle             | CSSProperties      | -             | The modal body style                                |
 | borderRadius          | number / string    | 5px           | BorderRadius of modal container                     |
 | cancelText            | string             | 取消           | The cancel button text                              |
 | canFullscreen         | boolean            | false         | Whether the modal can fullscreen                    |
